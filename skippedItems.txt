@@ -1,0 +1,3 @@
+Prefix, postfix, infix notation
+algo to generate prime numbers
+pre generate prime numbers to optimize isprime

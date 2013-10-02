@@ -1,0 +1,62 @@
+
+1.	Reverse a linked list
+2.	How would you determine if someone has won a game of tic-tac-toe on a board of any size?
+3.	the government wants cars to keep track of whether or not they are speeding. The unit to determine this is already able to determine the speed of the vehicle, how would you finish it
+4.	binary search for a sorted array
+5.	write it iteratively.
+6.	array of size 10^6, with the numbers 0 through (10^6)-1. The array has duplicate entries, so there will me missing numbers. Write a function to find one of the missing numbers. The solution should be in linear time. 
+7.	Given a sorted array of integers, write a function to remove any duplicates (e.g. 1,2,3,3,3,4,4,5 would go to 1,2,3,4,5).
+8.	Write a function to find the 2 biggest numbers in an array, and return the sum.
+9.	Then he had me write a function to find the K biggest elements in the array, 
+10.	Remove space from a given array of characters. 
+11.	Write a program to print the fibonacci series sum upto a particular no. using recursion. If you are given 5 Sum= (0+1+1+2+3)=7
+12.	We are given a pre order traversal of a tree, construct  back the tree using that pre order Array. Create a BST from this post order traversed array.
+13.	Bitwise operator: Add/Multiply two numbers using bit operation.
+14.	Program to write merge sort and explain the complexity.
+15.	When the storage in memory is done using Heap and when it is done using Stack. Basically memory implementation through Stack and Heap.
+16.	Check whether the no. is multiple of 7 or not in best possible way.
+17.	You have an Array of a million numbers. Duplicates exist in the array. Print out all duplicate numbers. Give best way to do this.
+18.	Given two arrays A[6] and B[3], both the arrays have 3 elements each. Both of them are sorted, need to return the merged array A[] after merging with array B[]. Need to do this inplace.
+19.	Given two arrays of signed integers. Find the intersecting set of the two.
+20.	Given a linked list, swap values inside nodes. Now do it by swaping the node pointers.
+21.	How does garbage collection works in Java?
+22.	write a function to find the K biggest elements in the array, and return the sum in linear time. 
+
+
+
+3rd interview was with some other developer. Given two arrays of signed integers. 
+Find the intersecting set of the two. Describe different solutions. 
+He once exclaimed that I was digging into the next question and said I was the only one so far to do that. 
+The next question was implement strpbrk(char* str,char* find). 
+It should return the string starting from the first character matched(find contains a string of characters). We ran out of time as he was asking me how to optimize my lookup(I was using an array).
+list.retainAll(anotherList) // for intersection
+list.addAll(anotherList) // union
+
+
+2nd interview was on-site, with one of the team developers. Given a linked list, swap values inside nodes. 
+Now do it by swaping the node pointers. This wasn't a hard question at all, but more of an organization question for me because it was kind of a twisted question and easy to be off by one pointer.
+
+
+
+#include<stdio.h>
+#include<conio.h>
+
+
+int main()
+ {
+  int f=0, s=0, t=1, sunm = 0;
+  
+  for(int i=0, i<n,i++)
+  {
+    f = s; s = t;
+    sum = sum + s;
+    t = s + f;
+  }
+  
+  printf("Sum: %d", sum);
+  getch();
+  return 0;
+ }
+
+
+
