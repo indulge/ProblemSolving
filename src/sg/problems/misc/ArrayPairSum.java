@@ -57,12 +57,12 @@ public class ArrayPairSum {
 	}
 
 	int arrSize = 10;
-	int MAX_MAG = 10;
+	int MAX_MAGNITUDE_ELEMENT = 10;
 	int[] arr = new int[arrSize];
 
 	public ArrayPairSum() {
 		for (int i = 0; i < arrSize; i++) {
-			arr[i] = (int)(Math.random() * MAX_MAG);
+			arr[i] = (int)(Math.random() * MAX_MAGNITUDE_ELEMENT);
 		}
 	}
 	
