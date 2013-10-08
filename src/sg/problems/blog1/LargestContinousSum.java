@@ -87,6 +87,7 @@ public class LargestContinousSum {
 
 		int maxSum = arr[0];
 
+		int tempStartIndex = 0;
 		int startIndex = 0;
 		int endIndex = 0;
 
@@ -96,22 +97,32 @@ public class LargestContinousSum {
 			// System.out.println(arr[i]);
 			if (sum < 0) {
 				sum = arr[i];
+				tempStartIndex = i;
+//				if (arr[i] > sum) {
+//					startIndex = i;
+//				}
+				
 			} else if (sum == 0) {
 				if (arr[i] > 0) {
 					sum = arr[i];
+					tempStartIndex = i;
 				}
 			} else if (sum > 0) {
 				sum = sum + arr[i];
 			}
+//			
+//			if (sum == arr[i]) {
+//				startIndex = i;
+//			}
+
+			
 			if (sum > maxSum) {
 				maxSum = sum;
-				endIndex = i;
-				if (sum == arr[i]) {
-					startIndex = i;
-				}
-				
+				startIndex = tempStartIndex;
+				endIndex = i;	
 			}
-
+			
+			
 		}
 
 		ArraySumValues val = new ArraySumValues(maxSum, startIndex, endIndex);
@@ -140,24 +151,40 @@ public class LargestContinousSum {
 		// }
 		int pass = 0;
 		int fail = 0;
+		int idxpass = 0;
+		int idxfail = 0;
 		for (int i = 0; i < 10000; i++) {
+
+			
+			
 			int[] arr = ArrayUtil.getRandomIntArray(10, -10, 10);
 			// int[] arr = { -4, -8, 1, 1, -2, 6, 6, -8, 7, 8 };
 			// int []arr = {-7, -9, -3, -6, -3, -3, -8, -4, -6, 0};
 			// int[] arr = { -3, -6, -8, -2, -2, -2, -1, -2, -9, -2 };
 			// int[] arr = { 5, 1, 4, -5, 3, 4, 2, -2, 4, 9 };
+			//int[] arr = {2, -3, -9, 1, 4, 0, 9, 7, 9, -6};
+//			int[] arr = {7, 0, 8, -1, -7, -5, -5, 7, -1, 6};
+			
+			
+			
+			
 			// System.out.println(Arrays.toString(arr));
 			// int maxSum1 = maxSubArraySum(arr);
 			// ---------------------------------------------------------
 			 ArraySumValues maxSumVals = maxSubArraySum2(arr); 
-			 System.out.println(Arrays.toString(arr) + " | " + maxSumVals);
+			
 			 int maxSum1 = maxSumVals.sum;
 			 int testIndex = 0;
 			 for (int i1 = maxSumVals.startIndex; i1<=maxSumVals.endIndex;i1++) {
-				 testIndex = testIndex + arr[i];
+				 testIndex = testIndex + arr[i1];
 			 }
+			 System.out.println(Arrays.toString(arr) + " | " + maxSumVals);
 			 if (maxSum1 != testIndex) {
 				 System.out.println("Index Values Failed");
+				 System.out.println("testIndex: "+testIndex + " maxSum1: "+maxSum1);
+				 idxfail++;
+			 } else {
+				 idxpass++;
 			 }
 			 //-----------------------------------------------------------
 			// int maxSum1 = sumSubArrVinay(arr);
@@ -182,37 +209,39 @@ public class LargestContinousSum {
 		
 		System.out.println("\nPass :" + pass);
 		System.out.println("Fail :" + fail);
+		System.out.println("\nidxPass :" + idxpass);
+		System.out.println("idxFail :" + idxfail);
 
 	}
 
-	public static int sumSubArrVinay(int[] arr) {
-		int start = 0, end = 0;
-		// int[] arr=new int[]{1,-2,3,-5,2,-4,8};
-		// int[] arr = { -4, -8, 1, 1, -2, 6, 6, -8, 7, 8 };
-		// int []arr = {-7, -9, -3, -6, -3, -3, -8, -4, -6, 0};
-		// int[] arr = { -3, -6, -8, -2, -2, -2, -1, -2, -9, -2 };
-		int maxVal = arr[0];
-		for (int len = 0; len <= arr.length; len++) {
-			for (int i = 0; i + len <= arr.length; i++) {
-				int max = findMax(arr, i, len, maxVal);
-				if (max > maxVal) {
-					maxVal = max;
-					start = i;
-					end = start + len;
-				}
-			}
-		}
-		// System.out.println(maxVal+"["+start+","+end+"]");
-		return maxVal;
-	}
-
-	private static int findMax(int[] arr, int start, int len, int max) {
-		int m = 0;
-		for (int i = start; i < start + len; i++) {
-			m += arr[i];
-		}
-		if (m > max)
-			max = m;
-		return max;
-	}
+//	public static int sumSubArrVinay(int[] arr) {
+//		int start = 0, end = 0;
+//		// int[] arr=new int[]{1,-2,3,-5,2,-4,8};
+//		// int[] arr = { -4, -8, 1, 1, -2, 6, 6, -8, 7, 8 };
+//		// int []arr = {-7, -9, -3, -6, -3, -3, -8, -4, -6, 0};
+//		// int[] arr = { -3, -6, -8, -2, -2, -2, -1, -2, -9, -2 };
+//		int maxVal = arr[0];
+//		for (int len = 0; len <= arr.length; len++) {
+//			for (int i = 0; i + len <= arr.length; i++) {
+//				int max = findMax(arr, i, len, maxVal);
+//				if (max > maxVal) {
+//					maxVal = max;
+//					start = i;
+//					end = start + len;
+//				}
+//			}
+//		}
+//		// System.out.println(maxVal+"["+start+","+end+"]");
+//		return maxVal;
+//	}
+//
+//	private static int findMax(int[] arr, int start, int len, int max) {
+//		int m = 0;
+//		for (int i = start; i < start + len; i++) {
+//			m += arr[i];
+//		}
+//		if (m > max)
+//			max = m;
+//		return max;
+//	}
 }
