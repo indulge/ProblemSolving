@@ -3,7 +3,7 @@ package sg.ds.arrays;
 import java.util.Arrays;
 import java.util.Random;
 
-import sg.util.IntArrayUtil;
+import sg.util.ArrayUtil;
 
 public class ArrayProblems {
 
@@ -193,7 +193,7 @@ public class ArrayProblems {
 				i++;
 			}
 
-			IntArrayUtil.printIntArray("inter", arr);
+			ArrayUtil.printIntArray("inter", arr);
 		}
 		// //ArrayUtil.printArray("Sorted Array with no missing values: ", arr);
 	}
@@ -356,8 +356,8 @@ public class ArrayProblems {
 		
 		int [] arrc = new int[arrlen * 2];
 		
-		arra = IntArrayUtil.getRandomIntArray(arrlen * 2, 100);
-		arrb = IntArrayUtil.getRandomIntArray(arrlen, 100);
+		arra = ArrayUtil.getRandomIntArray(arrlen * 2, 100);
+		arrb = ArrayUtil.getRandomIntArray(arrlen, 100);
 		
 		Arrays.sort(arra);
 		Arrays.sort(arrb);
@@ -432,7 +432,7 @@ public class ArrayProblems {
 
 		// int[] arr = IntArrayUtil.buildIntArrayFromString("8 1 2 3 4 5 6 7");
 		// int[] arr = IntArrayUtil.buildIntArrayFromString("2 3 4 5 6 7 8 1");
-		int[] arr = IntArrayUtil.buildIntArrayFromString("3 4 5 6 7 8 1 2");
+		int[] arr = ArrayUtil.buildIntArrayFromString("3 4 5 6 7 8 1 2");
 		
 		//int[] arr = IntArrayUtil.buildIntArrayFromString("1 2 3 4 5 6 7 8");
 

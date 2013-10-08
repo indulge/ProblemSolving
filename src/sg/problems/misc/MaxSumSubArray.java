@@ -1,6 +1,6 @@
 package sg.problems.misc;
 
-import sg.util.IntArrayUtil;
+import sg.util.ArrayUtil;
 
 
 public class MaxSumSubArray {
@@ -29,8 +29,8 @@ public class MaxSumSubArray {
 	}
 	
 	public static void main(String[] args) {
-		int[] arr  = IntArrayUtil.buildIntArrayFromString("1 2 3 -4 -5 2 4 -5 7", " ");
-		IntArrayUtil.printIntArray("array", arr);
+		int[] arr  = ArrayUtil.buildIntArrayFromString("1 2 3 -4 -5 2 4 -5 7", " ");
+		ArrayUtil.printIntArray("array", arr);
 		//arr  = ArrayUtil.buildIntArrayFromString("-1 -2 -3 -4", " ");
 		maxSumSubArray(arr);
 	}

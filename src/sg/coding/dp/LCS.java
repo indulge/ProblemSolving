@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import sg.util.IntArrayUtil;
+import sg.util.ArrayUtil;
 
 public class LCS {
 	static Map<Integer, List<String>> longestSequences = new HashMap<Integer, List<String>>();
@@ -39,7 +39,7 @@ public class LCS {
 			}
 			
 		}
-		IntArrayUtil.print2dIntArray(lenArr);
+		ArrayUtil.print2dIntArray(lenArr);
 		System.out.println(longestSequences);
 		return lenArr[aa.length][ab.length];
 	}

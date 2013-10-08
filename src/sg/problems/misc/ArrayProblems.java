@@ -1,6 +1,6 @@
 package sg.problems.misc;
 
-import sg.util.IntArrayUtil;
+import sg.util.ArrayUtil;
 
 public class ArrayProblems {
 
@@ -115,7 +115,7 @@ public class ArrayProblems {
 //		 int[] arr = ArrayUtil.buildIntArrayFromString("8 1 2 3 4 5 6 7");
 //		 int[] arr = ArrayUtil.buildIntArrayFromString("2 3 4 5 6 7 8 1");
 //		 int[] arr = ArrayUtil.buildIntArrayFromString("3 4 5 6 7 8 1 2");
-		 int[] arr = IntArrayUtil.buildIntArrayFromString("1 2 3 4 5 6 7 8");
+		 int[] arr = ArrayUtil.buildIntArrayFromString("1 2 3 4 5 6 7 8");
 		 
 		int idx = findMinRotatedSortedAsc(arr);
 		System.out.println(" idx: " + idx);

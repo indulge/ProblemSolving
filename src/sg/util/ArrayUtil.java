@@ -3,7 +3,7 @@ package sg.util;
 import java.util.Arrays;
 import java.util.Random;
 
-public class IntArrayUtil {
+public class ArrayUtil {
 	public static int[] buildIntArrayFromString(String str) {
 		return buildIntArrayFromString(str, " ");
 	}
@@ -19,38 +19,37 @@ public class IntArrayUtil {
 	}
 	
 	
-	public static int[] getRandomIntArray(int length, int range) {
+	public static int[] getRandomIntArray(int length, int min, int max) {
 		int[] ret = new int[length];
 		Random random = new Random();
 		for (int i = 0; i < ret.length; i++) {
-			ret[i] = random.nextInt(range) + 1;
+			double minmax = (random.nextDouble() * 100);
+//			System.out.println((int)minmax);
+//			System.out.println((int)minmax%2);
+//			System.out.println(minmax%2);
+			if ((int)minmax%2 == 0) {
+				//produce a -ve number
+				ret[i] = -1 * random.nextInt(Math.abs(min));
+			} else {
+				//produce a +ve number
+				ret[i] = random.nextInt(max);
+			}
+			
 		}
 		// System.out.println("Random Array: "+Arrays.toString(ret));
 		return ret;
 	}
 	
-//	public static int binSearch(int[] arr, int num) {
-//		return binSearch(arr, num, 0, arr.length);
-//	}
-//	
-//	private static int binSearch(int[] arr, int num, int start, int end) {
-//		int mid = (start + end) / 2;
-//		if (arr[mid] == num) {
-//			return mid;
-//		}
-// 		if ((end - start) <= 1) {
-// 			return -1;
-//		}
-// 		
-// 		if ( (arr[start] <= num) && (num <= arr[mid - 1]) ) {
-//			//binary search num in arr[start..mid]
-//			return binSearch(arr, num, start, mid);
-//		} else {
-//			return binSearch(arr, num, mid + 1, end);
-//		}
-// 		
-//	}
-	
+	public static int[] getRandomIntArray(int length, int max) {
+		int[] ret = new int[length];
+		Random random = new Random();
+		for (int i = 0; i < ret.length; i++) {
+			
+			ret[i] = random.nextInt(max);
+		}
+		// System.out.println("Random Array: "+Arrays.toString(ret));
+		return ret;
+	}
 	
 	public static class BinarySearch {
 
@@ -99,10 +98,10 @@ public class IntArrayUtil {
 		}
 	}
 
-	public static void shuffleArray(int[] arr) {
-		shuffleArray(arr, arr.length);
+	public static void shuffleIntArray(int[] arr) {
+		shuffleIntArray(arr, arr.length);
 	}
-	public static void shuffleArray(int[] arr, int numberofShuffles) {
+	public static void shuffleIntArray(int[] arr, int numberofShuffles) {
 		Random random = new Random();
 		for (int i = 0; i < numberofShuffles; i++) {
 			int idx1 = random.nextInt(arr.length);
