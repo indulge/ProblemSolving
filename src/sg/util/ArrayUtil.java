@@ -18,6 +18,14 @@ public class ArrayUtil {
 		return ret;
 	}
 	
+	public static int[] getSequentialIntArray(int start, int length) {
+		if (length < 0) return null;
+		int[] arr = new int[length];
+		for (int i = 0; i< length; i++) {
+			arr[i] = i + start;
+		}
+		return arr;
+	}
 	
 	public static int[] getRandomIntArray(int length, int min, int max) {
 		int[] ret = new int[length];
@@ -114,7 +122,7 @@ public class ArrayUtil {
 	}
 
 	public static void printIntArray(int[] arr) {
-		System.out.println("Array: " + Arrays.toString(arr));
+		System.out.println(Arrays.toString(arr));
 	}
 	
 	public static void printIntArray(String msg, int[] arr) {
