@@ -36,7 +36,6 @@ public class SimpleConsoleGraph {
     }
 
     private void initSampleGraph() {
-
         graph = sampleGraph.graph2();
 
     }
