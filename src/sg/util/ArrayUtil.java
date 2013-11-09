@@ -27,6 +27,17 @@ public class ArrayUtil {
 		return arr;
 	}
 	
+	public static int compareArrays(int arr1[], int arr2[]) {
+		if (arr1 == null || arr2 == null) return -1;
+		if (arr1.length != arr2.length) return -1;
+		int ret = 0;
+		for (int i = 0; i< arr1.length; i++) {
+			if (arr1[i] != arr2[i]) return -1;
+			else ret++;
+		}
+		return ret;
+	}
+	
 	public static int[] getRandomIntArray(int length, int min, int max) {
 		int[] ret = new int[length];
 		Random random = new Random();
