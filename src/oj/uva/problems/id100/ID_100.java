@@ -1,4 +1,4 @@
-package oj.uva.problems;
+package oj.uva.problems.id100;
 
 import java.io.IOException;
 import java.util.StringTokenizer;
@@ -8,6 +8,7 @@ class ID_100 {
 		Main.main(null);
 	}
 }
+
 
 class Main {
 
