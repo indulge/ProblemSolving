@@ -1,4 +1,4 @@
-package oj.uva.problems.id_10189;
+package oj.uva.problems.id10189;
 
 import java.io.IOException;
 import java.util.StringTokenizer;

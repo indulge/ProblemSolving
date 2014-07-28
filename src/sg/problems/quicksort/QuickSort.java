@@ -21,6 +21,10 @@ public class QuickSort {
 		arr[end - 1] = arr[smallEnd];
 		arr[smallEnd] = key;
 	}
+	
+//	private static void partition(int[] arr, int start, int end) {
+//		int key = arr[end - 1];
+//	}
 
 	public static void partition(int[] arr) {
 		partition(arr, 0, arr.length);
