@@ -1,4 +1,4 @@
-package codility.problems;
+package oj.codility.problems;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 

@@ -1,4 +1,4 @@
-package spoj.template;
+package oj.spoj.template;
 
 public class Main
 {

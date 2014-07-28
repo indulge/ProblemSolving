@@ -1,4 +1,4 @@
-package codility.problems;
+package oj.codility.problems;
 
 public class ArrayInversionCount {
 

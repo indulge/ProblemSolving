@@ -1,4 +1,4 @@
-package spoj.problems;
+package oj.spoj.problems;
 
 public class Anagrams
 {
@@ -19,12 +19,6 @@ public class Anagrams
     		 System.out.println("NO"); 
     	 }
      }
-//     while (!(s=r.readLine()).startsWith("42")) {
-//    	 if (readCount == 0) {
-//    		 
-//    	 }
-//     }
-//    System.out.println(s);
   }
   
   public static boolean checkAnagrams(String s1, String s2) {

@@ -1,4 +1,4 @@
-package codility.template;
+package oj.codility.template;
 
 import java.math.*;
 import java.util.*;

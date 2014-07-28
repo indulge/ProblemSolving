@@ -1,4 +1,4 @@
-package codility.problems;
+package oj.codility.problems;
 // you can also use imports, for example:
 // import java.math.*;
 
