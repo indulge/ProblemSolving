@@ -18,6 +18,19 @@ public class ArrayUtil {
 		return ret;
 	}
 	
+	public static Integer[] getAsObject(int [] arr) {
+		if (arr != null) {
+			Integer[] ret = new Integer[arr.length];
+			int index = 0;
+			for(int i:arr) {
+				Integer obj = new Integer(i);
+				ret[index++] = obj;
+			}
+			return ret;
+		}
+		return null;
+	}
+	
 	public static int[] getSequentialIntArray(int start, int length) {
 		if (length < 0) return null;
 		int[] arr = new int[length];
