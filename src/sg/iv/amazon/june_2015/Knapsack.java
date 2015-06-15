@@ -1,5 +1,6 @@
 package sg.iv.amazon.june_2015;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -60,22 +61,40 @@ public class Knapsack {
 				return -1;
 			if (capacity < 0)
 				return -1;
-
-			return getBestValueBrute(values, weights, capacity, 0);
+			List<Integer> itemList = new ArrayList<>();
+			int result = getBestValueBrute(values, weights, capacity, 0, itemList);
+			System.out.print(" " + itemList);
+			return result;
 		}
 
-		private int getBestValueBrute(List<Integer> values,
-				List<Integer> weights, int capacity, int itemIndex) {
+		private int getBestValueBrute(List<Integer> values, List<Integer> weights, int capacity, int itemIndex, List<Integer> itemList) {
 			if (values.size() <= itemIndex)
 				return 0; // items exausted, no more checking
 			else if (weights.get(itemIndex) > capacity)
-				return getBestValueBrute(values, weights, capacity, itemIndex + 1); // item too heavy, skip this item
+				return getBestValueBrute(values, weights, capacity, itemIndex + 1, itemList); // item too heavy, skip this item
 			else {
-				int excludeItem = getBestValueBrute(values, weights, capacity, itemIndex + 1);
-				int includeItem = values.get(itemIndex) + getBestValueBrute(values, weights, capacity - weights.get(itemIndex), itemIndex + 1);
-				int reuseItem = values.get(itemIndex) + getBestValueBrute(values, weights, capacity - weights.get(itemIndex), itemIndex);
+				List<Integer> excludeItemList = new ArrayList<>();
+				int excludeItem = getBestValueBrute(values, weights, capacity, itemIndex + 1, excludeItemList);
 				
-				return Math.max(Math.max(includeItem, excludeItem), reuseItem);
+				List<Integer> includeItemList = new ArrayList<>();
+				includeItemList.add(values.get(itemIndex));
+				int includeItem = values.get(itemIndex) + getBestValueBrute(values, weights, capacity - weights.get(itemIndex), itemIndex + 1, includeItemList);
+				
+				List<Integer> reuseItemList = new ArrayList<>();
+				reuseItemList.add(values.get(itemIndex));
+				int reuseItem = values.get(itemIndex) + getBestValueBrute(values, weights, capacity - weights.get(itemIndex), itemIndex, reuseItemList);
+				
+				int max = Math.max(Math.max(includeItem, excludeItem), reuseItem);
+				
+				if (max == includeItem) {
+					itemList.addAll(includeItemList);
+				} else if (max == excludeItem) {
+					itemList.addAll(excludeItemList);
+				} else {
+					itemList.addAll(reuseItemList);
+				}
+				
+				return max;
 			}
 
 		}
@@ -121,29 +140,39 @@ public class Knapsack {
 		// find best value we can put in knapsack given Value, Weight vectors
 		// and a capacity
 		// use item only once
-		public int getBestValueBrute(List<Integer> values,
-				List<Integer> weights, int capacity) {
+		public int getBestValueBrute(List<Integer> values, List<Integer> weights, int capacity) {
 			if (values == null || weights == null)
 				return -1;
 			if (values.size() != weights.size())
 				return -1;
 			if (capacity < 0)
 				return -1;
-
-			return getBestValueBrute(values, weights, capacity, 0);
+			List<Integer> itemList = new ArrayList<>();
+			int ret = getBestValueBrute(values, weights, capacity, 0, itemList);
+//			System.out.print(" "+itemList);
+			return ret;
 		}
 
-		private int getBestValueBrute(List<Integer> values,
-				List<Integer> weights, int capacity, int itemIndex) {
+		private int getBestValueBrute(List<Integer> values, List<Integer> weights, int capacity, int itemIndex, List<Integer> itemList) {
+			
 			if (values.size() <= itemIndex)
 				return 0; // items exausted, no more checking
 			else if (weights.get(itemIndex) > capacity)
-				return getBestValueBrute(values, weights, capacity,
-						itemIndex + 1); // item too heavy, skip this item
+				return getBestValueBrute(values, weights, capacity, itemIndex + 1, itemList); // item too heavy, skip this item
 			else {
-				int excludeItem = getBestValueBrute(values, weights, capacity, itemIndex + 1);
-				int includeItem = values.get(itemIndex) + getBestValueBrute(values, weights, capacity - weights.get(itemIndex), itemIndex + 1);
-				return Math.max(includeItem, excludeItem);
+				List<Integer> excludeItemList = new ArrayList<>();
+				int excludeItem = getBestValueBrute(values, weights, capacity, itemIndex + 1, excludeItemList);
+				
+				List<Integer> includeItemList = new ArrayList<>();
+				includeItemList.add(values.get(itemIndex));
+				int includeItem = values.get(itemIndex) + getBestValueBrute(values, weights, capacity - weights.get(itemIndex), itemIndex + 1, includeItemList);
+				int max = Math.max(includeItem, excludeItem);
+				if (max == includeItem) {
+					itemList.addAll(includeItemList);
+				} else {
+					itemList.addAll(excludeItemList);
+				}
+				return max;
 			}
 
 		}
@@ -151,13 +180,13 @@ public class Knapsack {
 
 	public static void main(String[] args) {
 
-		int[] arr = ArrayUtil.buildIntArrayFromString("1 2 3 4 5 6 7 8 9");
+		int[] arr = ArrayUtil.buildIntArrayFromString("1 2 4");
 		List<Integer> values = Arrays.asList(ArrayUtil.getAsObject(arr));
 
-		arr = ArrayUtil.buildIntArrayFromString("9 8 7 6 5 4 3 2 1");
+		arr = ArrayUtil.buildIntArrayFromString("1 1 1");
 		List<Integer> weights = Arrays.asList(ArrayUtil.getAsObject(arr));
 
-		int capacity = 0;
+		int capacity = 5;
 		
 		Knapsack.UseItemOnce once = new Knapsack.UseItemOnce();
 		Knapsack.UseItemUnlimited reuse = new Knapsack.UseItemUnlimited();
@@ -168,7 +197,7 @@ public class Knapsack {
 		
 		boolean runtime = true;
 		
-		for (capacity = 0; capacity <= 450; capacity++) {
+//		for (capacity = 0; capacity <= 45; capacity++) {
 			System.out.println("");
 			System.out.print("Capacity: " + capacity);
 			
@@ -195,18 +224,7 @@ public class Knapsack {
 			end = System.currentTimeMillis();
 			if(runtime) System.out.print(" Runtime: " + (end - start));
 			System.out.print(" REUSE_DP: " + result);
-		}
-		
-		//
-//		System.out.println("");
-//		capacity = 9;
-//		System.out.print("Capacity: " + capacity);
-//		start = System.currentTimeMillis();
-//		result = reuse.getBestValueBrute(values, weights, capacity);
-//		end = System.currentTimeMillis();
-//		System.out.print("Capacity: " + capacity);
-//		System.out.print(" REUSE: " + result);
-		//
+//		}
 
 	}
 }
