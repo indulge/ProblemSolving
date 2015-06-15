@@ -472,6 +472,7 @@ public class BinarySearchTree {
         if (n==null) {
             return -1;  //error conditon
         }
+        
         int lcount = size(n.left);
         //System.out.print("\nnode: "+n.data);
         //System.out.print(": k: "+k);System.out.println(" lcount: "+lcount);

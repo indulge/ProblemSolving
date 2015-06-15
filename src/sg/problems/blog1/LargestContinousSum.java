@@ -3,7 +3,6 @@ package sg.problems.blog1;
 import java.util.Arrays;
 
 import sg.util.ArrayUtil;
-import sun.org.mozilla.javascript.internal.ast.ForInLoop;
 
 public class LargestContinousSum {
 

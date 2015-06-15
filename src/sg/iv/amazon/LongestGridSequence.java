@@ -126,6 +126,7 @@ public class LongestGridSequence {
 	int updateLongestCol(int x, int y, Symbol s) {
 		int i = x - 1;
 		int len = 1;
+		//Symbol up
 		while ( i >= 0) {
 			if (grid[i][y] == s) {
 				len++;
@@ -135,7 +136,7 @@ public class LongestGridSequence {
 			i--;
 		}
 		
-		//sym to right
+		//symbol down
 		i = x + 1;
 		while ( i < grid.length) {
 			if (grid[x][i] == s) {

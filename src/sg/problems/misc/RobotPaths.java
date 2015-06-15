@@ -32,8 +32,7 @@ public class RobotPaths {
 		System.out.println(getNumberOfPathsWithObstacles(2,2,obstacles));
 	}
 	
-	public static void PrintAllPossiblePathsWithObstacles(int M, int N,
-			Set<IntPair> obstacles, String path) {
+	public static void PrintAllPossiblePathsWithObstacles(int M, int N, Set<IntPair> obstacles, String path) {
 		if (obstacles.contains(new IntPair(M, N)))
 			return;
 		else {
