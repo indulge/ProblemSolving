@@ -1,4 +1,4 @@
-package sg.coding.dp;
+package sg.problems.misc;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package sg.archive.linkedlist;
+package sg.archive;
 //import java.util.Stack;
 //
 //public class FindPalindrome {

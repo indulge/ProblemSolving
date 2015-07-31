@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package sg.archive.linkedlist;
+package sg.archive;
 
 import java.util.List;
 

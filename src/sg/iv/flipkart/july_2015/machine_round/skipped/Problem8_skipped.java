@@ -1,4 +1,4 @@
-package sg.iv.flipkart.july_2015.machine_round;
+package sg.iv.flipkart.july_2015.machine_round.skipped;
 
 import java.util.Arrays;
 import java.util.LinkedList;

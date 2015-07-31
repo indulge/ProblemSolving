@@ -1,4 +1,4 @@
-package sg.archive.linkedlist;
+package sg.archive;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,26 +8,26 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class FindAnagramsSet {
+public class FindAnagramList {
 
 	public static void main(String[] args) {
-		FindAnagramsSet test = new FindAnagramsSet();
-		String[] words = {"abcd","dcab","aasdf","bdasdf","aasdfb","cb","bc"};
+		FindAnagramList test = new FindAnagramList();
+		String[] words = {"abcd","dcab","aasdf","bdasdf","aasdfb","cbada","bcaad"};
 		test.printAnagrams(words);
 
 	}
 	
 	public void printAnagrams(String[] words) {
 		if (words==null) return;
-		Map< Set<Character>, List<String> > anagrams = 
-			new HashMap< Set<Character>, List<String> >();
+		Map< List<Character>, List<String> > anagrams = 
+			new HashMap< List<Character>, List<String> >();
 		for (String word: words) {
-			Set<Character> aset = new TreeSet<Character>();
+			List<Character> aset = new ArrayList<Character>();
 			//make sure that set is sorted
 			for (int i=0;i<word.length();i++) {
 				aset.add(word.charAt(i));
 			}
-			
+			Collections.sort(aset);
 			List<String> anagramList = anagrams.get(aset);
 			if (anagramList == null) {
 				anagramList = new ArrayList<String>();
@@ -38,8 +38,8 @@ public class FindAnagramsSet {
 			}
 
 		}
-		Set<Set<Character>> keySet = anagrams.keySet();
-		for (Set<Character> keyObj:keySet) {
+		Set<List<Character>> keySet = anagrams.keySet();
+		for (List<Character> keyObj:keySet) {
 			List<String> anagramList = anagrams.get(keyObj);
 			System.out.print(keyObj);
 			System.out.print(" : ");

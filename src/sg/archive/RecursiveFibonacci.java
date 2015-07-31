@@ -1,4 +1,4 @@
-package sg.archive.linkedlist;
+package sg.archive;
 
 public class RecursiveFibonacci {
 

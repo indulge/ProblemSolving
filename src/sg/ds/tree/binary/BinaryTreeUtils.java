@@ -129,8 +129,7 @@ class BTreePrinter {
 		printNodeInternal(Collections.singletonList(root), 1, maxLevel);
 	}
 
-	private static <T> void printNodeInternal(List<Node<T>> nodes, int level,
-			int maxLevel) {
+	private static <T> void printNodeInternal(List<Node<T>> nodes, int level, int maxLevel) {
 		if (nodes.isEmpty() || BTreePrinter.isAllElementsNull(nodes))
 			return;
 
