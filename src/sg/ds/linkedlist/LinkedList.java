@@ -1,16 +1,53 @@
 package sg.ds.linkedlist;
 
+import sg.ds.linkedlist.problems.AddLinkedLists;
+import sg.ds.linkedlist.problems.RemoveDuplicates;
+import sg.ds.linkedlist.problems.ReverseLinkedList;
+import sg.ds.linkedlist.problems.SwapNodes;
+
+import java.util.Objects;
+
 public class LinkedList {
-	class Node {
-		int data;
-		Node next;
+	public static class Node {
+		private Integer data;
+		private Node next;
 
-		public Node() {
-
+		public Node(Integer data) {
+			this.data = data;
 		}
 
-		public Node(int data) {
+		public Node(Integer data, Node next) {
 			this.data = data;
+			this.next = next;
+		}
+
+		public Integer getData() {
+			return data;
+		}
+
+		public Node getNext() {
+			return next;
+		}
+
+		public void setData(Integer data) {
+			this.data = data;
+		}
+
+		public void setNext(Node next) {
+			this.next = next;
+		}
+
+		@Override
+		public boolean equals(Object o) {
+			if (this == o) return true;
+			if (o == null || getClass() != o.getClass()) return false;
+			Node node = (Node) o;
+			return data.equals(node.data);
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(data);
 		}
 
 		@Override
@@ -21,22 +58,45 @@ public class LinkedList {
 
 	private Node root;
 
-	public Node buildRandomList(int numNodes) {
-		Node ret = new Node();
-		root = ret;
-		ret.data = (int) (Math.random() * 100) % 100;
+	public boolean isEmpty() {
+		return (root == null);
+	}
+
+	public Node getRoot() {
+		return root;
+	}
+
+	public void setRoot(Node root) {
+		this.root = root;
+	}
+
+	public static LinkedList buildRandomList(int numNodes) {
+		LinkedList linkedList = new LinkedList();
+		Node node = new Node((int) (Math.random() * 100) % 100);
+		linkedList.setRoot(node);
+
 		for (int i = 1; i < numNodes; i++) {
-			ret.next = new Node();
-			ret.next.data = (int) (Math.random() * 100) % 100;
-			ret = ret.next;
+			node.next = new Node((int) (Math.random() * 100) % 100);
+			node = node.next;
 		}
 
-		return ret;
+		return linkedList;
+	}
+
+	public static LinkedList buildListFromString(String values) {
+		String[] valArr = values.split(" ");
+		LinkedList linkedList = new LinkedList();
+		Node ret = new Node(Integer.parseInt(valArr[0]));
+		linkedList.root = ret;
+		for (int i = 1; i < valArr.length; i++) {
+			ret.next = new Node(Integer.parseInt(valArr[i]));
+			ret = ret.next;
+		}
+		return linkedList;
 	}
 
 	public void printList() {
-		Node tmp = root;
-		// System.out.println("");
+		Node tmp = this.root;
 		while (tmp != null) {
 			System.out.print(tmp);
 			if (tmp.next != null) {
@@ -44,51 +104,20 @@ public class LinkedList {
 			}
 			tmp = tmp.next;
 		}
-		System.out.println("");
+		System.out.println();
 	}
 
-	public void buildListFromString(String values) {
-		String[] valArr = values.split(" ");
-		Node ret = new Node(Integer.parseInt(valArr[0]));
-		root = ret;
-		for (int i = 1; i < valArr.length; i++) {
-			ret.next = new Node(Integer.parseInt(valArr[i]));
-			ret = ret.next;
-		}
-	}
-
-	public void reverseRec() {
-		reverseRec(null, root);
-	}
-
-	private void reverseRec(Node prev, Node curr) {
-		if (curr == null && prev != null) {
-			root = prev;
+	public void add(int data) {
+		Node node = new Node(data);
+		if (root == null) {
+			root = node;
 			return;
 		}
-
-		Node temp = curr.next;
-		curr.next = prev;
-		prev = curr;
-		curr = temp;
-
-		reverseRec(prev, curr);
-
-	}
-
-	public void reverse() {
-
-		Node prev = null;
-		Node node = root;
-
-		while (node != null) {
-			Node temp = node.next;
-			node.next = prev;
-			prev = node;
-			node = temp;
+		Node curr = root;
+		while (curr.next != null) {
+			curr = curr.next;
 		}
-
-		root = prev;
+		curr.setNext(node);
 	}
 
 	public void insertSorted(int data) {
@@ -120,69 +149,82 @@ public class LinkedList {
 		node.next = null;
 	}
 
-	public void swapNodesByData(int data1, int data2) {
-		Node prev1 = null;
-		Node prev2 = null;
-
-		Node tmp = root;
-		while (tmp != null) {
-			if (tmp.data == data1) {
-				break;
-			}
-			prev1 = tmp;
-			tmp = tmp.next;
-		}
-
-		tmp = root;
-		while (tmp != null) {
-			if (tmp.data == data2) {
-				break;
-			}
-			prev2 = tmp;
-			tmp = tmp.next;
-		}
-
-		Node node1 = prev1.next;
-		Node node2 = prev2.next;
-
-		Node node1Next = node1.next;
-		System.out.println("node1Next: " + node1Next);
-
-		prev1.next = node2;
-		prev2.next = node1;
-
-		node1Next = node1.next;
-		System.out.println("node1Next: " + node1Next);
-
-		node1.next = node2.next;
-		node2.next = node1Next;
-
-	}
-
 	public static void main(String[] args) {
-		LinkedList list1 = new LinkedList();
-		list1.buildRandomList(5);
+		LinkedList list1;
+		LinkedList list2;
+
+		System.out.println("Reverse list functions");
+		list1 = LinkedList.buildRandomList(5);
 		list1.printList();
 
-		list1.reverse();
+		ReverseLinkedList.reverse(list1);
 		list1.printList();
 
-		list1.reverseRec();
+		list1 = ReverseLinkedList.reverseRec(list1);
 		list1.printList();
 
-		// list1.buildListFromString("1 2 3 4 5");
-		// list1.printList();
-		//
-		// list1.swapNodesByData(2, 4);
-		// list1.printList();
-		//
-		// list1.buildListFromString("1 2 3 4 5");
-		// list1.swapNodesByData(2, 3);
-		// list1.printList();
-		//
-		// list1.buildListFromString("1 2 3 4 5");
-		// list1.swapNodesByData(2, 2);
-		// list1.printList();
+		System.out.println();
 
+		 list1 = LinkedList.buildListFromString("1 2 3 4 5");
+		 list1.printList();
+
+		 SwapNodes.swapNodesByData(list1, 2, 4);
+		 list1.printList();
+
+		list1 = LinkedList.buildListFromString("1 2 3 4 5");
+		SwapNodes.swapNodesByData(list1,2, 3);
+		list1.printList();
+
+		list1 = LinkedList.buildListFromString("1 2 3 4 5");
+		SwapNodes.swapNodesByData(list1,2, 2);
+		list1.printList();
+
+		System.out.println("Remove Duplicates");
+		list1 = LinkedList.buildListFromString("1 2 2 4 5");
+		list1.printList();
+		list1 = RemoveDuplicates.removeDuplicatesUnsorted(list1);
+		list1.printList();
+
+		System.out.println("Remove Duplicates");
+		list1 = LinkedList.buildListFromString("1 2 2 2 2");
+		list1.printList();
+		list1 = RemoveDuplicates.removeDuplicatesUnsorted(list1);
+		list1.printList();
+
+		System.out.println("Remove Duplicates");
+		list1 = LinkedList.buildListFromString("2 2 2 2 2 1");
+		list1.printList();
+		list1 = RemoveDuplicates.removeDuplicatesUnsorted(list1);
+		list1.printList();
+
+		System.out.println("Remove Duplicates");
+		list1 = LinkedList.buildListFromString("1 2 2 4 5");
+		list1.printList();
+		list1 = RemoveDuplicates.removeDuplicatesUnsortedNoHash(list1);
+		list1.printList();
+
+		System.out.println("Remove Duplicates");
+		list1 = LinkedList.buildListFromString("1 2 2 2 2");
+		list1.printList();
+		list1 = RemoveDuplicates.removeDuplicatesUnsortedNoHash(list1);
+		list1.printList();
+
+		System.out.println("Remove Duplicates");
+		list1 = LinkedList.buildListFromString("2 2 2 2 2 1");
+		list1.printList();
+		list1 = RemoveDuplicates.removeDuplicatesUnsortedNoHash(list1);
+		list1.printList();
+
+
+		System.out.println("Add lists");
+		list1 = LinkedList.buildListFromString("2 2 2 2 2 1");
+		list2 = LinkedList.buildListFromString("2 2 2 2 2 1");
+		list1.printList(); list2.printList();
+		AddLinkedLists.add(list1, list2).printList();
+
+		list1 = LinkedList.buildListFromString("1 9 9");
+		list2 = LinkedList.buildListFromString("9 9");
+		list1.printList(); list2.printList();
+		AddLinkedLists.add(list1, list2).printList();
 	}
 }

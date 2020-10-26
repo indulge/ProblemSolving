@@ -7,7 +7,7 @@ public class VisitMaze {
 
 /*
 
-Suppose you are given a puzzle that is represented as a matrix with 0s and 1s, where a 0 indicates you’re allowed to move into that position and 1 means you’re not allowed to move in that position. Write a function that given a start position and an end position, returns a boolean value indicating if there exists a path from start to end. you are only allowed to move up, left, right and down. Diagonal movement is not allowed. 
+Suppose you are given a puzzle that is represented as a matrix with 0s and 1s, where a 0 indicates youre allowed to move into that position and 1 means youre not allowed to move in that position. Write a function that given a start position and an end position, returns a boolean value indicating if there exists a path from start to end. you are only allowed to move up, left, right and down. Diagonal movement is not allowed.
 
 Example #1 
 Input 

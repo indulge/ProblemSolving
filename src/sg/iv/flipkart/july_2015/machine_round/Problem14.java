@@ -10,11 +10,11 @@ import java.util.Set;
 import java.util.Stack;
 
 //14 -Input :
-//List of edges are given in the format (source, destination) –> (s1,d1) (s2,d2)…
+//List of edges are given in the format (source, destination) > (s1,d1) (s2,d2)
 //There are some error codes with priority.
-//1 –Loop
-//2 –Multiple roots
-//3 –More than two children
+//1 Loop
+//2 Multiple roots
+//3 More than two children
 //19
 //Sample
 //Questions

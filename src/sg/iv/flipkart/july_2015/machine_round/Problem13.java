@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 //13 -Write a running code in any language to implement the famous tic-tac-toe game.
 //Design this game as per following:
 //1) Game has 3 modes: Human Vs Human, Human Vs Computer and Computer Vs Computer.
-//2) Initially start with 3X3 grid, but it can be generalized to NXN grid. So don’t hardcode any variable.
+//2) Initially start with 3X3 grid, but it can be generalized to NXN grid. So don t hardcode any variable.
 //3) Minimize Code Redundancy and try to make it as modular as possible.
 //4) Try to use abstraction and expose lesser number of functions(APIs) to outside world.
 //5) Try to cover maximum number of edge cases, like when to abort the game, draw condition, win condition, overwriting existing value in grid etc)
