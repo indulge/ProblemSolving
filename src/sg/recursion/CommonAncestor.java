@@ -1,4 +1,4 @@
-package sg.rec;
+package sg.recursion;
 
 import java.util.ArrayList;
 import java.util.List;

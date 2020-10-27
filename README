@@ -1,6 +1,29 @@
-Skipped Items:
---------------
+Graph Learning Notes:
 
-Prefix, postfix, infix notation
-algo to generate prime numbers
-pre generate prime numbers to optimize isprime
+1. Add DFS and BFS functions with start node specification, rather than try to construct whole graph.
+List<Node<T>> graphDfs(Node<T> startNode);
+
+2. Reverse Adj list can be kept to determine roots for graph.
+```
+        Set<Node<String>> startNodes = graphAdjacency
+                .keySet()
+                .stream()
+                .filter(node -> reverseAdjacency.get(node) == null)
+                .collect(Collectors.toSet());
+```
+
+3. Element should be removed from Queue or Stack only if can be processed immediately, otherwise use peek().
+
+TODO:
+
+1. Problems to solve
+* Prefix, postfix, infix notation
+* algo to generate prime numbers
+* pre generate prime numbers to optimize isprime
+
+2. Low Priority:
+* Code formatting settings for intellij java projects.
+    - Integrate checkstyle.
+    - Integrate findbugs.
+
+

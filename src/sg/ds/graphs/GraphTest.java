@@ -10,7 +10,7 @@ public class GraphTest {
         test2.bfs();
 
         test2.dfs("s");
-        test2.topSort("s");
-        test2.topSort();
+        test2.topologicalSort("s");
+        test2.topologicalSort();
     }
 }

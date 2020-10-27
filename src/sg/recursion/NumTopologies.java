@@ -1,4 +1,4 @@
-package sg.rec;
+package sg.recursion;
 
 public class NumTopologies {
     public static void main(String[] args) throws Exception {

@@ -37,7 +37,6 @@ public class SimpleGraph<T> {
         if (!reverseGraph.containsKey(node)) {
             reverseGraph.put(node, new ArrayList<>());
         }
-
     }
 
     public void addEdge(T fromNode, T toNode, Integer weight) {
@@ -60,29 +59,29 @@ public class SimpleGraph<T> {
         edgeWeights.put(new ImmutablePair<>(fromNode, toNode), weight);
     }
 
-    public List<GraphNode> topSort() {
+    public List<GraphNode> topologicalSort() {
         Map<GraphNode, GraphNode> parentMap = new HashMap<>();
         final List<GraphNode> topSortNodes = new ArrayList<>();
         reverseGraph.forEach((k, v) -> {
             if (v.size() == 0) {
                 System.out.println("Topsorting for Node: " + k);
-                topSortNodes.addAll(topSortRec(k.data, Optional.of(parentMap)));
+                topSortNodes.addAll(topologicalSortRecursive(k.data, Optional.of(parentMap)));
             }
         });
         Collections.reverse(topSortNodes);
-        System.out.println("topSort():" + topSortNodes);
+        System.out.println("topologicalSort():" + topSortNodes);
         return topSortNodes;
     }
 
-    public List<GraphNode> topSort(T startNode) {
-        return topSortRec(startNode, Optional.empty());
+    public List<GraphNode> topologicalSort(T startNode) {
+        return topologicalSortRecursive(startNode, Optional.empty());
     }
 
     /**
      * Topological sort using DFS recursive.
      */
-    public List<GraphNode> topSortRec(T startNode,
-                                   Optional<Map<GraphNode, GraphNode>> parentTracker) {
+    public List<GraphNode> topologicalSortRecursive(T startNode,
+                                                    Optional<Map<GraphNode, GraphNode>> parentTracker) {
         Map<GraphNode, GraphNode> parentMap = parentTracker.orElse(new HashMap<>());
         final List<GraphNode> topSortNodes = new ArrayList<>();
         dfsRecursive(new GraphNode<T>(startNode),
