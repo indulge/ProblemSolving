@@ -19,13 +19,13 @@ List<Node<T>> graphDfs(Node<T> startNode);
 
 
 TODO:
+* Write Algorithms on paper.
 
-1. Problems to solve
-* Prefix, postfix, infix notation
-* algo to generate prime numbers
-* pre generate prime numbers to optimize isprime
+* Problems to solve
+    - Prefix, postfix, infix notation
+    - algo to generate prime numbers
+    - pre generate prime numbers to optimize isprime
 
-2. Low Priority:
 * Code formatting settings for intellij java projects.
     - Integrate checkstyle.
     - Integrate findbugs.
