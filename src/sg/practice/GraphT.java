@@ -1,6 +1,7 @@
 package sg.practice;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -41,10 +42,18 @@ public interface GraphT<T> {
     Map<Node<T>, List<Node<T>>> reverseAdjacency();
 
     List<Node<T>> graphBfs();
+
     List<Node<T>> graphDfs();
 
     List<Node<String>> graphDfs(Node<String> startNode);
+
+    List<Node<String>> graphBfsFrontier();
+
     List<Node<String>> graphBfs(Node<String> startNode);
+
+    List<Node<String>> graphDfsRecursivePreOrder();
+
+    List<Node<String>> graphDfsRecursivePostOrder();
 
     default List<Node<T>> bfsProcessor(Consumer<Node<T>> nodeProcessor) {
         List<Node<T>> bfs = graphBfs();
@@ -128,13 +137,33 @@ class Graph1 implements GraphT<String> {
     }
 
     @Override
+    public List<Node<String>> graphBfsFrontier() {
+        Set<Node<String>> startNodes = getRootNodes();
+        System.out.println("Root Nodes: " + startNodes);
+        List<Node<String>> fullBfs = new ArrayList<>();
+        Map<Node<String>, Integer> nodeVisit = new HashMap<>();
+        if (startNodes != null) {
+            startNodes.forEach(
+                    node -> {
+                        System.out.println("Processing Root Node: " + node);
+                        if (nodeVisit.putIfAbsent(node, Integer.valueOf(1)) == null) {
+                            List<Node<String>> bfs = graphBfsFrontierMethod(node, nodeVisit);
+                            fullBfs.addAll(bfs);
+                        }
+                    }
+            );
+        }
+        return fullBfs;
+    }
+
+    @Override
     public List<Node<String>> graphBfs(Node<String> startNode) {
         return graphBfs(startNode, new HashMap<>());
     }
 
     @Override
     public List<Node<String>> graphDfs(Node<String> startNode) {
-        return graphDfs(startNode, new HashMap<>());
+        return graphDfsIterativePostOrder(startNode, new HashMap<>());
     }
 
     @Override
@@ -147,9 +176,49 @@ class Graph1 implements GraphT<String> {
             startNodes.forEach(
                     node -> {
                         if (nodeVisit.get(node) == null) {
-                            List<Node<String>> dfs = graphDfs(node, nodeVisit);
+                            List<Node<String>> dfs = graphDfsIterativePreOrder(node, nodeVisit);
                             fullDfs.addAll(dfs);
                         }
+                    }
+            );
+        }
+        return fullDfs;
+    }
+
+    @Override
+    public List<Node<String>> graphDfsRecursivePreOrder() {
+        Set<Node<String>> startNodes = getRootNodes();
+        System.out.println("Root Nodes: " + startNodes);
+        List<Node<String>> fullDfs = new ArrayList<>();
+        if (startNodes != null) {
+            Map<Node<String>, Integer> nodeVisit = new HashMap<>();
+            List<Node<String>> dfs = new ArrayList<>();
+            startNodes.forEach(
+                    node -> {
+                        System.out.println("Processing root: " + node);
+                        graphDfsRecursivePreOrder(node, dfs, nodeVisit);
+                        fullDfs.addAll(dfs);
+                        dfs.clear();
+                    }
+            );
+        }
+        return fullDfs;
+    }
+
+    @Override
+    public List<Node<String>> graphDfsRecursivePostOrder() {
+        Set<Node<String>> startNodes = getRootNodes();
+        System.out.println("Root Nodes: " + startNodes);
+        List<Node<String>> fullDfs = new ArrayList<>();
+        if (startNodes != null) {
+            Map<Node<String>, Integer> nodeVisit = new HashMap<>();
+            List<Node<String>> dfs = new ArrayList<>();
+            startNodes.forEach(
+                    node -> {
+                        System.out.println("Processing root: " + node);
+                        graphDfsRecursivePostOrder(node, dfs, nodeVisit);
+                        fullDfs.addAll(dfs);
+                        dfs.clear();
                     }
             );
         }
@@ -179,8 +248,6 @@ class Graph1 implements GraphT<String> {
                             Integer visitStatus = nodeVisit.putIfAbsent(node, Integer.valueOf(1));
                             if (visitStatus == null) {
                                 bfsQueue.add(node);
-                            } else if (visitStatus == 1) {
-                                System.out.println("Cycle found at node: " + node);
                             }
                         }
                 );
@@ -189,7 +256,47 @@ class Graph1 implements GraphT<String> {
         return bfs;
     }
 
-    private List<Node<String>> graphDfs(Node<String> startNode, Map<Node<String>, Integer> nodeVisit) {
+    private List<Node<String>> graphBfsFrontierMethod(Node<String> startNode, Map<Node<String>, Integer> nodeVisit) {
+        List<Node<String>> bfs = new ArrayList<>();
+        List<Node<String>> frontier = new ArrayList<>();
+        frontier.add(startNode);
+        int frontierCount = 1;
+        while (!frontier.isEmpty()) {
+            List<Node<String>> nextFrontier = new ArrayList<>();
+            System.out.println("Processing Frontier: " + frontierCount);
+            for (Node<String> node : frontier) {
+
+                // Process the node...
+                System.out.println("Processing: " + node);
+                nodeVisit.put(node, Integer.valueOf(2));
+                bfs.add(node);
+                // End process node.
+
+                List<Node<String>> nextNodes = graphAdjacency.get(node);
+                if (nextNodes != null) {
+                    for(Node<String> nextNode: nextNodes) {
+                         if (nodeVisit.putIfAbsent(nextNode, Integer.valueOf(1)) == null) {
+                             nextFrontier.add(nextNode);
+                         }
+                    }
+                }
+            }
+            if (frontierCount%2 == 1) {
+                System.out.println(frontierCount+"|"+frontier);
+            } else {
+                AtomicInteger count = new AtomicInteger(frontier.size() - 1);
+                List<Node<String>> reverseFrontier = frontier.stream().map(node -> frontier.get(count.getAndDecrement())).collect(Collectors.toList());
+                System.out.println(frontierCount+"|"+reverseFrontier);
+            }
+            frontier.clear();
+            frontier.addAll(nextFrontier);
+            frontierCount++;
+        }
+        return bfs;
+    }
+
+    //Post order.
+    private List<Node<String>> graphDfsIterativePostOrder(Node<String> startNode, Map<Node<String>, Integer> nodeVisit) {
         List<Node<String>> dfs = new ArrayList<>();
         Stack<Node<String>> dfsStack = new Stack<>();
 
@@ -205,8 +312,6 @@ class Graph1 implements GraphT<String> {
                             if (visitStatus == null) {
                                 dfsStack.push(node);
                                 nodeVisit.put(node, Integer.valueOf(1));
-                            } else if (visitStatus == 1) {
-                                System.out.println("Cycle found at node: " + node);
                             }
                         }
                 );
@@ -224,6 +329,74 @@ class Graph1 implements GraphT<String> {
         return dfs;
     }
 
+    //Pre-order.
+    private List<Node<String>> graphDfsIterativePreOrder(Node<String> startNode, Map<Node<String>, Integer> nodeVisit) {
+        List<Node<String>> dfs = new ArrayList<>();
+        Stack<Node<String>> dfsStack = new Stack<>();
+
+        dfsStack.add(startNode);
+        nodeVisit.put(startNode, Integer.valueOf(1));
+        while (!dfsStack.empty()) {
+
+            // Process the node...
+            Node<String> nodeToProcess = dfsStack.pop();
+            System.out.println("Processing: " + nodeToProcess);
+            nodeVisit.put(nodeToProcess, Integer.valueOf(2));
+            dfs.add(nodeToProcess);
+            // End process node.
+
+            List<Node<String>> nextNodes = graphAdjacency.get(nodeToProcess);
+            if (nextNodes != null) {
+                nextNodes.forEach(
+                        node -> {
+                            Integer visitStatus = nodeVisit.putIfAbsent(node, Integer.valueOf(1));
+                            if (visitStatus == null) {
+                                dfsStack.push(node);
+                            }
+                        }
+                );
+            }
+        }
+        return dfs;
+    }
+
+    private List<Node<String>> graphDfsRecursivePreOrder(Node<String> startNode, List<Node<String>> dfs, Map<Node<String>, Integer> nodeVisit) {
+        // Process the node...
+        System.out.println("Processing: " + startNode);
+        dfs.add(startNode);
+        nodeVisit.put(startNode, Integer.valueOf(2));
+        // End process node.
+
+        List<Node<String>> nextNodes = graphAdjacency.get(startNode);
+        if (nextNodes != null) {
+            for (Node<String> node : nextNodes) {
+                if (nodeVisit.putIfAbsent(node, Integer.valueOf(1)) == null) {
+                    graphDfsRecursivePreOrder(node, dfs, nodeVisit);
+                }
+            }
+        }
+        return dfs;
+    }
+
+    private List<Node<String>> graphDfsRecursivePostOrder(Node<String> startNode, List<Node<String>> dfs, Map<Node<String>, Integer> nodeVisit) {
+        List<Node<String>> nextNodes = graphAdjacency.get(startNode);
+        if (nextNodes != null) {
+            for (Node<String> node : nextNodes) {
+                if (nodeVisit.putIfAbsent(node, Integer.valueOf(1)) == null) {
+                    graphDfsRecursivePostOrder(node, dfs, nodeVisit);
+                }
+            }
+        }
+
+        // Process the node...
+        System.out.println("Processing: " + startNode);
+        dfs.add(startNode);
+        nodeVisit.put(startNode, Integer.valueOf(2));
+        // End process node.
+
+        return dfs;
+    }
+
     private Set<Node<String>> getRootNodes() {
         return graphAdjacency
                 .keySet()
@@ -235,7 +408,10 @@ class Graph1 implements GraphT<String> {
     public static void main(String[] args) {
         GraphT<String> sample1 = buildSample1();
         System.out.println("Adjacency: " + sample1.graphAdjacency());
-        List<Node<String>> bfs1 = sample1.graphDfs(new Node<>("s"));
+        List<Node<String>> dfs1 = sample1.graphDfs(new Node<>("s"));
+        System.out.println("DFS: From: S => " + dfs1);
+
+        List<Node<String>> bfs1 = sample1.graphBfs(new Node<>("s"));
         System.out.println("BFS: From: S => " + bfs1);
 
         List<Node<String>> bfs2 = sample1.graphBfs();
@@ -243,6 +419,15 @@ class Graph1 implements GraphT<String> {
 
         List<Node<String>> dfs2 = sample1.graphDfs();
         System.out.println("DFS: " + dfs2);
+
+        List<Node<String>> dfsRecPre = sample1.graphDfsRecursivePreOrder();
+        System.out.println("DFS Rec: " + dfsRecPre);
+
+        List<Node<String>> dfsRecPost = sample1.graphDfsRecursivePostOrder();
+        System.out.println("DFS Rec post: " + dfsRecPost);
+
+        List<Node<String>> bfsFrontier = sample1.graphBfsFrontier();
+        System.out.println("bfsFrontier: " + bfsFrontier);
     }
 
     public static GraphT<String> buildSample1() {

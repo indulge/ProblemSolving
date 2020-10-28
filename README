@@ -14,6 +14,10 @@ List<Node<T>> graphDfs(Node<T> startNode);
 
 3. Element should be removed from Queue or Stack only if can be processed immediately, otherwise use peek().
 
+4. If we do pre-order in DFS, iterative logic is simpler because we do not need to keep track if new nodes got added to stack or not.
+
+
+
 TODO:
 
 1. Problems to solve
