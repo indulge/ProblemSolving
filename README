@@ -16,9 +16,15 @@ List<Node<T>> graphDfs(Node<T> startNode);
 
 4. If we do pre-order in DFS, iterative logic is simpler because we do not need to keep track if new nodes got added to stack or not.
 
+5. Topological sort: reverse of pre-order DFS = Post order DFS. Graph must be DAG. All trees, since trees do not have cycles.
 
+6. Recursive DFS. Since in general DAG graph we can have multiple nodes point to same next node, we need to keep track of visited nodes. But we do not need to keep track of visited nodes in tree. Tracking List of nodes to store traversal, is required to be passed as function parameter.
 
 TODO:
+* Detect cycle in graph.
+
+* Topological Sort: What is difference between DFS - post and reverse v/s pre v/s use adjList v/s use reverseAdjList.
+
 * Write Algorithms on paper.
 
 * Problems to solve
@@ -31,3 +37,5 @@ TODO:
     - Integrate findbugs.
 
 
+References:
+Topological Sort Algorithm | Graph Theory: https://www.youtube.com/watch?v=eL-KzMXSXXI
