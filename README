@@ -21,6 +21,10 @@ List<Node<T>> graphDfs(Node<T> startNode);
 6. Recursive DFS. Since in general DAG graph we can have multiple nodes point to same next node, we need to keep track of visited nodes. But we do not need to keep track of visited nodes in tree. Tracking List of nodes to store traversal, is required to be passed as function parameter.
 
 TODO:
+* Write a Trie:
+    - single character per level.
+    - Prefix per level.
+
 * Detect cycle in graph.
 
 * Topological Sort: What is difference between DFS - post and reverse v/s pre v/s use adjList v/s use reverseAdjList.
