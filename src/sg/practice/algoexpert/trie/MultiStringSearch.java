@@ -29,6 +29,9 @@ class Trie {
     TrieNode prefixRoot = new TrieNode();
     TrieNode suffixRoot = new TrieNode();
 
+    //O(m*n^2) time | O (m*n^2) space.
+    // m = number of strings.
+    // n = max length of string.
     public void generatePrefixTrie(List<String> strings) {
         if (strings == null || strings.size() == 0) return;
         for (String string : strings) {
@@ -68,6 +71,7 @@ class Trie {
         node.nodes.put(TERM_STR, null);
     }
 
+    //O(k) time | O(1) space  | k = length of input string.
     //Returns even if string is prefix of string starting at trie.
     public boolean prefixSearch(String string, TrieNode trie) {
         for (int i = 0; i < string.length(); i++) {
@@ -95,30 +99,6 @@ class Trie {
         String json = gson.toJson(trie);
         System.out.println(json);
     }
-
-//    public void printTrie(TrieNode trie) {
-//        Stack<TrieNode> stack = new Stack<>();
-////        Stack<String> stringStack = new Stack<>();
-//        Set<String> keys = trie.nodes.keySet();
-//        for (String key:keys) {
-//            stack.push(trie.nodes.get(key));
-////            stringStack.push(key);
-//        }
-//
-//        while (!stack.isEmpty()) {
-//            TrieNode node = stack.pop();
-////            String prefix = stringStack.pop();
-//
-//            Set<String> nextKeys = node.nodes.keySet();
-//            for (String nextKey:nextKeys) {
-////                stringStack.push(nextKey);
-//                TrieNode nextNode = node.nodes.get(nextKey);
-//                if
-//                stack.push(nextNode);
-//            }
-//
-//        }
-//    }
 }
 
 public class MultiStringSearch {
@@ -158,3 +138,4 @@ public class MultiStringSearch {
         program.trie.printTrieJson(program.trie.prefixRoot);
     }
 }
+

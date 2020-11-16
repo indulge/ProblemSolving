@@ -29,6 +29,8 @@ public class SuffixTreeConstruction {
                 populateSuffixTrieFrom(str);
             }
 
+            //O(n^2) time | O (n^2) space.
+            // n = length of string.
             public void populateSuffixTrieFrom(String str) {
                 if (str == null || str.length() == 0) return;
                 for (int i = str.length() - 1; i >= 0 ; i--) {
@@ -42,6 +44,7 @@ public class SuffixTreeConstruction {
                 }
             }
 
+            //O(k) time | O(1) space  | k = length of input string.
             public boolean contains(String str) {
                 System.out.println("contains: "+str);
                 if (str == null) return false;
